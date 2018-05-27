@@ -10,36 +10,42 @@
       </Message>
     </div>
     <div class="mdui-row" id="inputArea">
-      <div class="mdui-col-xs-6">
-        <div class="mdui-textfield mdui-textfield-floating-label">
-          <label class="mdui-textfield-label">Username</label>
-          <input class="mdui-textfield-input" type="text" v-model="username" required/>
-          <div class="mdui-textfield-error">用户名不能为空</div>
-        </div>
-      </div>
-      <div class="mdui-col-xs-6">
-        <div class="mdui-textfield mdui-textfield-floating-label">
-          <label class="mdui-textfield-label">Email</label>
-          <input class="mdui-textfield-input" type="email" v-model="email" required/>
-          <div class="mdui-textfield-error">邮箱格式错误</div>
-        </div>
-      </div>
-      <div class="mdui-col-xs-12">
-        <div class="mdui-textfield mdui-textfield-floating-label">
-          <label class="mdui-textfield-label">Message</label>
-          <div class="mdui-textfield-helper mdui-typo">
-            <a href="https://segmentfault.com/markdown" target="_blank">MarkDown</a> is Supported
+      <div class="mdui-m-t-2">
+        <div class="mdui-col-xs-6">
+          <div class="mdui-textfield mdui-textfield-floating-label">
+            <label class="mdui-textfield-label">Username</label>
+            <input class="mdui-textfield-input" type="text" v-model="username" required/>
+            <div class="mdui-textfield-error">用户名不能为空</div>
           </div>
-        <textarea class="mdui-textfield-input" @keyup.ctrl.enter="sendMessage" v-model="inputMessage"></textarea>
+        </div>
+        <div class="mdui-col-xs-6">
+          <div class="mdui-textfield mdui-textfield-floating-label">
+            <label class="mdui-textfield-label">Email</label>
+            <input class="mdui-textfield-input" type="email" v-model="email" required/>
+            <div class="mdui-textfield-error">邮箱格式错误</div>
+          </div>
+        </div>
+        <div class="mdui-col-xs-12">
+          <div class="mdui-textfield mdui-textfield-floating-label">
+            <label class="mdui-textfield-label">Message</label>
+            <div class="mdui-textfield-helper mdui-typo">
+              <a href="https://segmentfault.com/markdown" target="_blank">MarkDown</a> is Supported
+            </div>
+          <textarea class="mdui-textfield-input" @keyup.ctrl.enter="sendMessage" v-model="inputMessage"></textarea>
+          </div>
         </div>
       </div>
     </div>
+    <button @click="sendMessage" class="mdui-fab mdui-fab-fixed mdui-color-theme-accent mdui-ripple">
+      <i class="mdui-icon material-icons">send</i>
+    </button>
   </div>
 </template>
 
 <script>
 import Message from './SingleMessage.vue'
 import mdui from 'mdui'
+import format from 'string-format'
 export default {
   name: 'MessageArea',
   components: {Message},
@@ -56,9 +62,13 @@ export default {
         timestamp: (new Date()).valueOf()
       }
       this.addMessage(data)
+    },
+    login: function (data) {
+      mdui.snackbar('成功连接服务器！现有{numUsers}人在线'.format(data))
     }
   },
   mounted () {
+    format.extend(String.prototype, {})
     mdui.mutation()
   },
   methods: {
@@ -72,6 +82,9 @@ export default {
         email: this.email,
         timestamp: (new Date()).valueOf()
       }
+      if (!this.added) {
+        this.$socket.emit('addUser', this.username, this.email)
+      }
       console.log(this.inputMessage)
       this.addMessage(data)
       this.inputMessage = ''
@@ -83,7 +96,8 @@ export default {
       username: '',
       email: '',
       messages: [],
-      inputMessage: ''
+      inputMessage: '',
+      added: false
     }
   }
 }
