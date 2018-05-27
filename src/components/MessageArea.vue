@@ -79,6 +79,12 @@ export default {
   mounted () {
     format.extend(String.prototype, {})
     mdui.mutation()
+    if (localStorage.getItem('username') !== null) {
+      this.username = localStorage.getItem('username')
+    }
+    if (localStorage.getItem('email') !== null) {
+      this.email = localStorage.getItem('email')
+    }
   },
   methods: {
     addMessage: function (data) {
@@ -98,6 +104,8 @@ export default {
       if (!this.newlyAdded) {
         this.$socket.emit('addUser', this.username, this.email)
         this.newlyAdded = true
+        localStorage.setItem('email', this.email)
+        localStorage.setItem('username', this.username)
       }
       console.log(this.inputMessage)
       this.addMessage(data)
