@@ -51,7 +51,13 @@ export default {
   components: {Message},
   sockets: {
     connect: function () {
+      mdui.snackbar('连接到服务器')
       console.log('socket connected')
+    },
+    disconnect: function () {
+      mdui.snackbar('看起来您掉线了..')
+      this.added = false
+      console.log('socket disconnected')
     },
     newMessage: function (val) {
       console.log(val)
@@ -64,7 +70,7 @@ export default {
       this.addMessage(data)
     },
     login: function (data) {
-      mdui.snackbar('成功连接服务器！现有{numUsers}人在线'.format(data))
+      mdui.snackbar('成功连接服务器，现有{numUsers}人在线'.format(data))
     }
   },
   mounted () {
@@ -84,6 +90,7 @@ export default {
       }
       if (!this.added) {
         this.$socket.emit('addUser', this.username, this.email)
+        this.added = true
       }
       console.log(this.inputMessage)
       this.addMessage(data)
