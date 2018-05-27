@@ -82,24 +82,7 @@ export default {
     return {
       username: '',
       email: '',
-      messages: [
-        {
-          username: 'User',
-          content: '**Markdown** Text! $\\sum$\n``` cpp \n #include <bits/stdc++.h> \n using namespace std;\n```',
-          email: '351652632@qq.com',
-          timestamp: 1527339724283
-        }, {
-          username: 'User',
-          content: '**Markdown** Text!',
-          email: '351652632@qq.com',
-          timestamp: 1527339744283
-        }, {
-          username: 'User',
-          content: '**Markdown** Text!',
-          email: '351652632@qq.com',
-          timestamp: 1527339774283
-        }
-      ],
+      messages: [],
       inputMessage: ''
     }
   }
