@@ -9,7 +9,7 @@
         :timestamp="i.timestamp">
       </Message>
     </div>
-    <div class="mdui-row">
+    <div class="mdui-row" id="inputArea">
       <div class="mdui-col-xs-6">
         <div class="mdui-textfield mdui-textfield-floating-label">
           <label class="mdui-textfield-label">Username</label>
@@ -102,5 +102,10 @@ textarea {
     Noto Sans CJK SC,
     WenQuanYi Micro Hei,
     monospace;
+}
+#inputArea {
+  position: sticky;
+  bottom: 0px;
+  background-color: white;
 }
 </style>
