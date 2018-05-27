@@ -1,0 +1,109 @@
+<template>
+  <div class="mdui-col-xs-12">
+      <div class="mdui-card mdui-m-t-1 mdui-m-b-1">
+        <div class="mdui-card-header">
+          <gravatar :email="email"/>
+          <div class="mdui-card-header-title">{{ username }}</div>
+          <div class="mdui-card-header-subtitle">{{ time }}</div>
+        </div>
+        <div class="mdui-card-content tgt mdui-typo">
+          <div v-html="renderedMarkdown"></div>
+        </div>
+        <!-- <div class="mdui-card-actions">
+          <button class="mdui-btn mdui-ripple">action 1</button>
+          <button class="mdui-btn mdui-ripple">action 2</button>
+          <button class="mdui-btn mdui-btn-icon mdui-float-right"><i class="mdui-icon material-icons">expand_more</i></button>
+        </div> -->
+      </div>
+    </div>
+</template>
+
+<script>
+import marked from 'marked'
+import renderMathInElement from 'katex/dist/contrib/auto-render'
+import katexReplaceWithTex from 'katex/contrib/copy-tex/katex2tex.js'
+import mdui from 'mdui'
+import hljs from 'highlight.js'
+import gravatar from './Gravatar.vue'
+import delay from 'lodash/delay'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/zh-cn'
+export default {
+  components: {gravatar},
+  name: 'Message',
+  props: ['username', 'content', 'email', 'timestamp'],
+  data: function () {
+    return {
+      renderedMarkdown: '',
+      time: ''
+    }
+  },
+  created () {
+    dayjs.extend(relativeTime)
+    dayjs.locale('zh-cn')
+    this.getTime()
+    setInterval(this.getTime, 1000 * 60)
+    this.renderEverything()
+  },
+  watch: {
+    content: function () {
+      this.renderEverything()
+    }
+  },
+  methods: {
+    getTime: function () {
+      this.time = dayjs(this.timestamp).fromNow()
+    },
+    compileMarkdown: function (text) {
+      return marked(text, {
+        highlight: function (code) {
+          return hljs.highlightAuto(code).value
+        },
+        gfm: true,
+        tables: true
+      })
+    },
+    renderMath: function () {
+      var $$ = mdui.JQ
+      var all = $$('.tgt')
+      for (var i = 0; i < all.length; ++i) {
+        renderMathInElement(all[i], {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ]
+        })
+      }
+      document.addEventListener('copy', function (event) {
+        const selection = window.getSelection()
+        if (selection.isCollapsed) {
+          return
+        }
+        const fragment = selection.getRangeAt(0).cloneContents()
+        if (!fragment.querySelector('.katex-mathml')) {
+          return
+        }
+        const html = []
+        for (let i = 0; i < fragment.childNodes.length; i++) {
+          html.push(fragment.childNodes[i].outerHTML)
+        }
+        event.clipboardData.setData('text/html', html.join(''))
+        event.clipboardData.setData('text/plain',
+          katexReplaceWithTex(fragment).textContent)
+        event.preventDefault()
+      })
+    },
+    renderEverything: function () {
+      this.renderedMarkdown = this.compileMarkdown(this.content)
+      delay(this.renderMath, 200)
+    }
+  }
+
+}
+</script>
+
+<style>
+@import 'highlight.js/styles/ocean.css';
+@import 'katex/contrib/copy-tex/copy-tex.css';
+</style>
