@@ -11,18 +11,20 @@
     </div>
     <div class="mdui-row" id="inputArea">
       <div class="mdui-m-t-2">
-        <div class="mdui-col-xs-6">
-          <div class="mdui-textfield mdui-textfield-floating-label">
-            <label class="mdui-textfield-label">Username</label>
-            <input class="mdui-textfield-input" type="text" v-model="username" required/>
-            <div class="mdui-textfield-error">用户名不能为空</div>
+        <div v-if="!newlyAdded">
+          <div class="mdui-col-xs-6">
+            <div class="mdui-textfield mdui-textfield-floating-label">
+              <label class="mdui-textfield-label">Username</label>
+              <input class="mdui-textfield-input" type="text" v-model="username" required/>
+              <div class="mdui-textfield-error">用户名不能为空</div>
+            </div>
           </div>
-        </div>
-        <div class="mdui-col-xs-6">
-          <div class="mdui-textfield mdui-textfield-floating-label">
-            <label class="mdui-textfield-label">Email</label>
-            <input class="mdui-textfield-input" type="email" v-model="email" required/>
-            <div class="mdui-textfield-error">邮箱格式错误</div>
+          <div class="mdui-col-xs-6">
+            <div class="mdui-textfield mdui-textfield-floating-label">
+              <label class="mdui-textfield-label">Email</label>
+              <input class="mdui-textfield-input" type="email" v-model="email" required/>
+              <div class="mdui-textfield-error">邮箱格式错误</div>
+            </div>
           </div>
         </div>
         <div class="mdui-col-xs-12">
@@ -57,7 +59,7 @@ export default {
     },
     disconnect: function () {
       mdui.snackbar('看起来您掉线了..')
-      this.added = false
+      this.newlyAdded = false
       console.log('socket disconnected')
     },
     newMessage: function (val) {
@@ -93,9 +95,9 @@ export default {
         email: this.email,
         timestamp: (new Date()).valueOf()
       }
-      if (!this.added) {
+      if (!this.newlyAdded) {
         this.$socket.emit('addUser', this.username, this.email)
-        this.added = true
+        this.newlyAdded = true
       }
       console.log(this.inputMessage)
       this.addMessage(data)
@@ -109,7 +111,7 @@ export default {
       email: '',
       messages: [],
       inputMessage: '',
-      added: false
+      newlyAdded: false
     }
   }
 }
