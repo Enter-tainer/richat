@@ -2,7 +2,7 @@
 
 > Online chat with Markdown/LaTeX support
 
-Demo is available in [chat.yuyuko.cc](https://chat.yuyuko.cc)
+Demo is available in [chat.margatroid.xyz/](https://chat.margatroid.xyz/)
 
 ## Build Setup
 
