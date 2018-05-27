@@ -46,6 +46,7 @@
 import Message from './SingleMessage.vue'
 import mdui from 'mdui'
 import format from 'string-format'
+import delay from 'lodash/delay'
 export default {
   name: 'MessageArea',
   components: {Message},
@@ -80,8 +81,12 @@ export default {
   methods: {
     addMessage: function (data) {
       this.messages.push(data)
+      delay(function () {
+        document.getElementById('end').scrollIntoView()
+      }, 100)
     },
     sendMessage: function () {
+      if (this.inputMessage === '') return
       var data = {
         username: this.username,
         content: this.inputMessage,
