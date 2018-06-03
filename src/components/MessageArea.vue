@@ -87,6 +87,10 @@ export default {
   },
   updated () {
     document.getElementById('end').scrollIntoView()
+    // var scroll = new SmoothScroll()
+    // var anchor = document.querySelector('#end')
+    // scroll.animateScroll(anchor)
+    // document.getElementById('inputText').focus()
   },
   methods: {
     addMessage: function (data) {
