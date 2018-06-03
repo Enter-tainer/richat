@@ -21,7 +21,6 @@
 <script>
 import marked from 'marked'
 import renderMathInElement from 'katex/dist/contrib/auto-render'
-import katexReplaceWithTex from 'katex/contrib/copy-tex/katex2tex.js'
 import mdui from 'mdui'
 import hljs from 'highlight.js'
 import gravatar from './Gravatar.vue'
@@ -72,24 +71,6 @@ export default {
           {left: '$$', right: '$$', display: true},
           {left: '$', right: '$', display: false}
         ]
-      })
-      document.addEventListener('copy', function (event) {
-        const selection = window.getSelection()
-        if (selection.isCollapsed) {
-          return
-        }
-        const fragment = selection.getRangeAt(0).cloneContents()
-        if (!fragment.querySelector('.katex-mathml')) {
-          return
-        }
-        const html = []
-        for (let i = 0; i < fragment.childNodes.length; i++) {
-          html.push(fragment.childNodes[i].outerHTML)
-        }
-        event.clipboardData.setData('text/html', html.join(''))
-        event.clipboardData.setData('text/plain',
-          katexReplaceWithTex(fragment).textContent)
-        event.preventDefault()
       })
     },
     renderEverything: function () {
