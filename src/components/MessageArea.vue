@@ -9,7 +9,7 @@
         :timestamp="i.timestamp">
       </Message>
     </div>
-    <div class="mdui-row" id="inputArea">
+    <div class="mdui-row mdui-color-transparent" id="inputArea">
       <div class="mdui-m-t-2">
         <div v-if="!newlyAdded">
           <div class="mdui-col-xs-6">
@@ -91,7 +91,7 @@ export default {
       this.messages.push(data)
       delay(function () {
         document.getElementById('end').scrollIntoView()
-      }, 100)
+      }, 50)
     },
     sendMessage: function () {
       if (this.inputMessage === '') return
@@ -142,6 +142,5 @@ textarea {
 #inputArea {
   position: sticky;
   bottom: 0px;
-  background-color: white;
 }
 </style>

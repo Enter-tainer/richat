@@ -67,14 +67,12 @@ export default {
     renderMath: function () {
       var $$ = mdui.JQ
       var all = $$('.tgt')
-      for (var i = 0; i < all.length; ++i) {
-        renderMathInElement(all[i], {
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false}
-          ]
-        })
-      }
+      renderMathInElement(all[all.length - 1], {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]
+      })
       document.addEventListener('copy', function (event) {
         const selection = window.getSelection()
         if (selection.isCollapsed) {
