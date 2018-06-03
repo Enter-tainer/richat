@@ -6,10 +6,11 @@
         :username='i.username'
         :content='i.content'
         :email="i.email"
-        :timestamp="i.timestamp">
+        :timestamp="i.timestamp"
+        :self="i.username === username">
       </Message>
     </div>
-    <div class="mdui-row mdui-color-transparent" id="inputArea">
+    <div class="mdui-row" id="inputArea" :class="{ nightMode: nightMode, dayMode: !nightMode}">
       <div class="mdui-m-t-2">
         <div v-if="!newlyAdded">
           <div class="mdui-col-xs-6">
@@ -51,6 +52,7 @@ import format from 'string-format'
 export default {
   name: 'MessageArea',
   components: {Message},
+  props: ['nightMode'],
   sockets: {
     connect: function () {
       mdui.snackbar('连接到服务器')
@@ -134,7 +136,7 @@ export default {
 
 <style scoped>
 textarea {
-  font-family: 'Fira Code', Consolas, 'Sarasa Gothic SC',
+    font-family: 'Fira Code', Consolas, 'Sarasa Gothic SC',
     PingFang SC ,
     Microsoft YaHei,
     Source Han Sans SC,
@@ -143,7 +145,13 @@ textarea {
     monospace;
 }
 #inputArea {
-  position: static;
+  position: sticky;
   bottom: 0px;
+}
+.nightMode {
+  background-color: rgba(48, 48, 48, 1);
+}
+.dayMode {
+  background-color: white;
 }
 </style>

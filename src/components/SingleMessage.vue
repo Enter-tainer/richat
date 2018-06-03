@@ -1,6 +1,6 @@
 <template>
-  <div class="mdui-col-xs-12">
-      <div class="mdui-card mdui-m-t-1 mdui-m-b-1">
+  <div class="mdui-col-xs-8" :class="{ 'mdui-col-offset-xs-4': self}">
+      <div class="mdui-card mdui-m-t-1 mdui-m-b-1 mdui-shadow-3">
         <div class="mdui-card-header">
           <gravatar :email="email"/>
           <div class="mdui-card-header-title">{{ username }}</div>
@@ -32,7 +32,7 @@ import 'dayjs/locale/zh-cn'
 export default {
   components: {gravatar},
   name: 'Message',
-  props: ['username', 'content', 'email', 'timestamp'],
+  props: ['username', 'content', 'email', 'timestamp', 'self'],
   data: function () {
     return {
       renderedMarkdown: '',

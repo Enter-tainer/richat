@@ -5,7 +5,7 @@
         <a href="/">
           <li class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
-            <div class="mdui-list-item-content">Home</div>
+            <div class="mdui-list-item-content">主页</div>
           </li>
         </a>
         <li class="mdui-collapse-item mdui-collapse-item-open">
@@ -27,7 +27,7 @@
         </li>
       </ul>
     </div>
-    <MessageArea/>
+    <MessageArea :nightMode="nightMode"/>
   </div>
 </template>
 
