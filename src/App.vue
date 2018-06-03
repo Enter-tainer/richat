@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <div class="mdui-drawer" id="left-drawer" mdui-collapse="{accordion: true}">
-      <ul class="mdui-list">
+    <div class="mdui-drawer" id="left-drawer">
+      <ul class="mdui-list" mdui-collapse="{accordion: true}">
         <a href="/">
           <li class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
             <div class="mdui-list-item-content">Home</div>
           </li>
         </a>
-         <li class="mdui-collapse-item mdui-collapse-item-open">
+        <li class="mdui-collapse-item mdui-collapse-item-open">
           <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
             <div class="mdui-list-item-content">设置</div>
