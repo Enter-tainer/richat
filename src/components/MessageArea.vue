@@ -48,7 +48,6 @@
 import Message from './SingleMessage.vue'
 import mdui from 'mdui'
 import format from 'string-format'
-import delay from 'lodash/delay'
 export default {
   name: 'MessageArea',
   components: {Message},
@@ -86,12 +85,12 @@ export default {
       this.email = localStorage.getItem('email')
     }
   },
+  updated () {
+    document.getElementById('end').scrollIntoView()
+  },
   methods: {
     addMessage: function (data) {
       this.messages.push(data)
-      delay(function () {
-        document.getElementById('end').scrollIntoView()
-      }, 50)
     },
     sendMessage: function () {
       if (this.inputMessage === '') return
@@ -140,7 +139,7 @@ textarea {
     monospace;
 }
 #inputArea {
-  position: sticky;
+  position: static;
   bottom: 0px;
 }
 </style>
