@@ -94,7 +94,7 @@ export default {
     },
     renderEverything: function () {
       this.renderedMarkdown = this.compileMarkdown(this.content)
-      delay(this.renderMath, 200)
+      delay(this.renderMath, 100)
     }
   }
 
