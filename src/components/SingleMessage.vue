@@ -27,6 +27,7 @@ import gravatar from './Gravatar.vue'
 import delay from 'lodash/delay'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import 'highlight.js/lib/languages/haskell.js'
 import 'dayjs/locale/zh-cn'
 export default {
   components: {gravatar},
