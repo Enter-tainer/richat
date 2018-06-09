@@ -1,5 +1,7 @@
 # chat
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Enter-tainer/richchat.svg)](https://greenkeeper.io/)
+
 > Online chat with Markdown/LaTeX support
 
 Demo is available in [chat.margatroid.xyz/](https://chat.margatroid.xyz/)
