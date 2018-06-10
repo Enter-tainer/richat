@@ -12,7 +12,7 @@
     </div>
     <div class="mdui-row" id="inputArea" :class="{ nightMode: nightMode, dayMode: !nightMode}">
       <div class="mdui-m-t-2">
-        <div v-if="!newlyAdded">
+        <div v-if="!logined">
           <div class="mdui-col-xs-6">
             <div class="mdui-textfield mdui-textfield-floating-label">
               <label class="mdui-textfield-label">Username</label>
@@ -52,7 +52,7 @@ import format from 'string-format'
 export default {
   name: 'MessageArea',
   components: {Message},
-  props: ['nightMode'],
+  props: ['nightMode', 'resetUsername'],
   sockets: {
     connect: function () {
       mdui.snackbar('连接到服务器')
@@ -82,9 +82,11 @@ export default {
     mdui.mutation()
     if (localStorage.getItem('username') !== null) {
       this.username = localStorage.getItem('username')
+      this.logined = true
     }
     if (localStorage.getItem('email') !== null) {
       this.email = localStorage.getItem('email')
+      this.logined = true
     }
   },
   updated () {
@@ -106,6 +108,7 @@ export default {
         email: this.email,
         timestamp: (new Date()).valueOf()
       }
+      this.logined = true
       if (!this.newlyAdded) {
         this.$socket.emit('addUser', this.username, this.email)
         this.newlyAdded = true
@@ -124,7 +127,13 @@ export default {
       email: '',
       messages: [],
       inputMessage: '',
-      newlyAdded: false
+      newlyAdded: false,
+      logined: false
+    }
+  },
+  watch: {
+    resetUsername: function () {
+      this.logined = false
     }
   }
 }

@@ -23,11 +23,15 @@
                   <i class="mdui-switch-icon"></i>
                 </label>
               </li>
+              <li class="mdui-list-item mdui-ripple" @click="resetUsername = !resetUsername">
+                <i class="mdui-list-item-icon mdui-icon material-icons">restore</i>
+                <div class="mdui-list-item-content">重置用户名</div>
+              </li>
           </ul>
         </li>
       </ul>
     </div>
-    <MessageArea :nightMode="nightMode"/>
+    <MessageArea :nightMode="nightMode" :resetUsername="resetUsername"/>
   </div>
 </template>
 
@@ -40,7 +44,8 @@ export default {
   components: {MessageArea},
   data: function () {
     return {
-      nightMode: false
+      nightMode: true,
+      resetUsername: false
     }
   },
   watch: {
@@ -50,6 +55,10 @@ export default {
     }
   },
   created () {
+    var $$ = mdui.JQ
+    if (this.nightMode && !$$('body').hasClass('mdui-theme-layout-dark')) {
+      $$('body').toggleClass('mdui-theme-layout-dark')
+    }
     document.addEventListener('copy', function (event) {
       const selection = window.getSelection()
       if (selection.isCollapsed) {
