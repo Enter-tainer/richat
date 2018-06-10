@@ -2,9 +2,9 @@
   <div class="mdui-col-xs-8" :class="{ 'mdui-col-offset-xs-4': self}">
       <div class="mdui-card mdui-m-t-1 mdui-m-b-1 mdui-shadow-3">
         <div class="mdui-card-header">
-          <gravatar :email="email"/>
-          <div class="mdui-card-header-title">{{ username }}</div>
-          <div class="mdui-card-header-subtitle">{{ time }}</div>
+          <gravatar :email="email" :class="{ 'mdui-float-right': self, 'mdui-m-l-1': self }"/>
+          <div class="mdui-card-header-title" :class="{ 'mdui-text-right': self }">{{ username }}</div>
+          <div class="mdui-card-header-subtitle" :class="{ 'mdui-text-right': self }">{{ time }}</div>
         </div>
         <div class="mdui-card-content tgt mdui-typo">
           <div v-html="renderedMarkdown"></div>

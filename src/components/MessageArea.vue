@@ -128,10 +128,6 @@ export default {
     }
   }
 }
-// this.$options.sockets.login = (data) => {
-//   console.log('login')
-//   console.log(data)
-// }
 </script>
 
 <style scoped>
