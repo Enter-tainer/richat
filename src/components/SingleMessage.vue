@@ -19,16 +19,14 @@
 </template>
 
 <script>
-import marked from 'marked'
-import renderMathInElement from 'katex/dist/contrib/auto-render'
-import mdui from 'mdui'
-import hljs from 'highlight.js'
 import gravatar from './Gravatar.vue'
 import delay from 'lodash/delay'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import 'highlight.js/lib/languages/haskell.js'
 import 'dayjs/locale/zh-cn'
+import renderMarkdown from '../utilities/MarkdownRenderer.js'
+import renderMath from '../utilities/MathRenderer.js'
+import makeMediaZoomable from '../utilities/Fancybox.js'
 export default {
   components: {gravatar},
   name: 'Message',
@@ -55,31 +53,15 @@ export default {
     getTime: function () {
       this.time = dayjs(this.timestamp).fromNow()
     },
-    compileMarkdown: function (text) {
-      return marked(text, {
-        highlight: function (code) {
-          return hljs.highlightAuto(code).value
-        },
-        gfm: true,
-        tables: true
-      })
-    },
-    renderMath: function () {
-      var $$ = mdui.JQ
-      var all = $$('.tgt')
-      renderMathInElement(all[all.length - 1], {
-        delimiters: [
-          {left: '$$', right: '$$', display: true},
-          {left: '$', right: '$', display: false}
-        ]
-      })
-    },
     renderEverything: function () {
-      this.renderedMarkdown = this.compileMarkdown(this.content)
-      delay(this.renderMath, 100)
+      this.renderedMarkdown = renderMarkdown(this.content)
+      delay(renderMath, 100)
+      delay(makeMediaZoomable, 100)
     }
+  },
+  updated () {
+    delay(makeMediaZoomable, 100)
   }
-
 }
 </script>
 
