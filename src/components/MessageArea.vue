@@ -1,6 +1,17 @@
 <template>
   <div class="mdui-container">
     <div class="mdui-row">
+      <Message v-for="i in historyMessage"
+        :key="i.id"
+        :username='i.username'
+        :content='i.content'
+        :email="i.email"
+        :timestamp="i.timestamp"
+        :self="i.username === username">
+      </Message>
+    </div>
+    <div class="mdui-row">
+      <div class="mdui-divider mdui-m-t-1 mdui-m-b-1"></div>
       <Message v-for="i in messages"
         :key="i.id"
         :username='i.username'
@@ -75,6 +86,9 @@ export default {
     },
     login: function (data) {
       mdui.snackbar('成功连接服务器，现有{numUsers}人在线'.format(data))
+    },
+    getHistoryMessage: function (data) {
+      this.historyMessage = data
     }
   },
   mounted () {
@@ -88,6 +102,7 @@ export default {
       this.email = localStorage.getItem('email')
       this.logined = true
     }
+    this.$socket.emit('fetchHistory')
   },
   updated () {
     document.getElementById('end').scrollIntoView()
@@ -108,12 +123,12 @@ export default {
         email: this.email,
         timestamp: (new Date()).valueOf()
       }
+      localStorage.setItem('email', this.email)
+      localStorage.setItem('username', this.username)
       this.logined = true
       if (!this.newlyAdded) {
         this.$socket.emit('addUser', this.username, this.email)
         this.newlyAdded = true
-        localStorage.setItem('email', this.email)
-        localStorage.setItem('username', this.username)
       }
       console.log(this.inputMessage)
       this.addMessage(data)
@@ -128,7 +143,8 @@ export default {
       messages: [],
       inputMessage: '',
       newlyAdded: false,
-      logined: false
+      logined: false,
+      historyMessage: []
     }
   },
   watch: {
