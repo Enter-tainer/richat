@@ -9,6 +9,7 @@ export default function renderMarkdown (text) {
       return hljs.highlightAuto(code).value
     },
     gfm: true,
-    tables: true
+    tables: true,
+    sanitize: true
   })
 }
