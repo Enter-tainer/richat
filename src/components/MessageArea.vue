@@ -59,6 +59,8 @@
 <script>
 import Message from './SingleMessage.vue'
 import mdui from 'mdui'
+import { renderAllMath } from '../utilities/MathRenderer.js'
+import delay from 'lodash/delay'
 import format from 'string-format'
 export default {
   name: 'MessageArea',
@@ -89,6 +91,7 @@ export default {
     },
     getHistoryMessage: function (data) {
       this.historyMessage = data
+      delay(renderAllMath, 300)
     }
   },
   mounted () {
