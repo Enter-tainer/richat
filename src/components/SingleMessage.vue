@@ -64,8 +64,3 @@ export default {
   }
 }
 </script>
-
-<style>
-@import 'highlight.js/styles/ocean.css';
-@import 'katex/contrib/copy-tex/copy-tex.css';
-</style>
