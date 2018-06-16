@@ -1,6 +1,6 @@
 <template>
   <div class="mdui-container">
-    <LoadingSpinner class="mdui-center mdui-m-t-3"/>
+    <LoadingSpinner class="mdui-center mdui-m-t-3" v-if="loadingHistoryMessage"/>
     <div class="mdui-row" v-if="!loadingHistoryMessage">
       <Message v-for="i in historyMessage"
         :key="i.id"
