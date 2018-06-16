@@ -1,6 +1,7 @@
 <template>
   <div class="mdui-container">
-    <div class="mdui-row">
+    <LoadingSpinner class="mdui-center mdui-m-t-3"/>
+    <div class="mdui-row" v-if="!loadingHistoryMessage">
       <Message v-for="i in historyMessage"
         :key="i.id"
         :username='i.username'
@@ -11,7 +12,7 @@
       </Message>
     </div>
     <div class="mdui-row">
-      <div class="mdui-divider mdui-m-t-1 mdui-m-b-1"></div>
+      <div class="mdui-divider mdui-m-t-1 mdui-m-b-1" v-if="!loadingHistoryMessage"></div>
       <Message v-for="i in messages"
         :key="i.id"
         :username='i.username'
@@ -57,14 +58,15 @@
 </template>
 
 <script>
-import Message from './SingleMessage.vue'
+import Message from './SingleMessage'
+import LoadingSpinner from './LoadingSpinner'
 import mdui from 'mdui'
 import { renderAllMath } from '../utilities/MathRenderer.js'
 import delay from 'lodash/delay'
 import format from 'string-format'
 export default {
   name: 'MessageArea',
-  components: {Message},
+  components: {Message, LoadingSpinner},
   props: ['nightMode', 'resetUsername'],
   sockets: {
     connect: function () {
@@ -91,6 +93,7 @@ export default {
     },
     getHistoryMessage: function (data) {
       this.historyMessage = data
+      this.loadingHistoryMessage = false
       delay(renderAllMath, 300)
     }
   },
@@ -147,7 +150,8 @@ export default {
       inputMessage: '',
       newlyAdded: false,
       logined: false,
-      historyMessage: []
+      historyMessage: [],
+      loadingHistoryMessage: true
     }
   },
   watch: {
