@@ -21,7 +21,6 @@
     "medium-zoom": "^0.4.0",
     "smooth-scroll": "^14.2.0",
     "socket.io": "^2.1.1",
-    "string-format": "^2.0.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^2.1.1-b"

@@ -63,7 +63,6 @@ import LoadingSpinner from './LoadingSpinner'
 import mdui from 'mdui'
 import { renderAllMath } from '../utilities/MathRenderer.js'
 import delay from 'lodash/delay'
-import format from 'string-format'
 export default {
   name: 'MessageArea',
   components: {Message, LoadingSpinner},
@@ -89,7 +88,7 @@ export default {
       this.addMessage(data)
     },
     login: function (data) {
-      mdui.snackbar('成功连接服务器，现有{numUsers}人在线'.format(data))
+      mdui.snackbar(`成功连接服务器，现有${data.numUsers}人在线`)
     },
     getHistoryMessage: function (data) {
       this.historyMessage = data
@@ -98,7 +97,6 @@ export default {
     }
   },
   mounted () {
-    format.extend(String.prototype, {})
     mdui.mutation()
     if (localStorage.getItem('username') !== null) {
       this.username = localStorage.getItem('username')
