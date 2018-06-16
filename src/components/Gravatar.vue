@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import link from '../utilities/GravatarLink'
+import gavatarLink from '../utilities/GravatarLink'
 export default {
   name: 'gravatar',
   props: {
@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     url () {
-      return link(this.hash, this.email, this.size, this.defaultImg, this.rating)
+      return gavatarLink(this.hash, this.email, this.size, this.defaultImg, this.rating)
     }
   },
   methods: {

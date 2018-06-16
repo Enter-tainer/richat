@@ -62,7 +62,7 @@ import Message from './SingleMessage'
 import LoadingSpinner from './LoadingSpinner'
 import mdui from 'mdui'
 import { renderAllMath } from '../utilities/MathRenderer.js'
-import link from '../utilities/GravatarLink'
+import gavatarLink from '../utilities/GravatarLink'
 import delay from 'lodash/delay'
 export default {
   name: 'MessageArea',
@@ -79,7 +79,6 @@ export default {
       console.log('socket disconnected')
     },
     newMessage: function (val) {
-      console.log(val)
       var data = {
         username: val.username,
         content: val.content,
@@ -122,7 +121,7 @@ export default {
       if (data.username !== this.username) {
         this.$notification.show(`${data.username} said:`, {
           body: data.content,
-          icon: link('', data.email)
+          icon: gavatarLink('', data.email)
         }, {})
       }
     },
@@ -141,7 +140,6 @@ export default {
         this.$socket.emit('addUser', this.username, this.email)
         this.newlyAdded = true
       }
-      console.log(this.inputMessage)
       this.addMessage(data)
       this.inputMessage = ''
       this.$socket.emit('newMessage', data)
