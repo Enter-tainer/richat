@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import App from './App'
 import VueSocketio from 'vue-socket.io'
+import VueNativeNotification from 'vue-native-notification'
+
 Vue.config.productionTip = false
 Vue.use(VueSocketio, 'https://chat.yuyuko.cc')
+Vue.use(VueNativeNotification, {
+  requestOnNotify: true
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

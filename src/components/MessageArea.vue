@@ -62,6 +62,7 @@ import Message from './SingleMessage'
 import LoadingSpinner from './LoadingSpinner'
 import mdui from 'mdui'
 import { renderAllMath } from '../utilities/MathRenderer.js'
+import link from '../utilities/GravatarLink'
 import delay from 'lodash/delay'
 export default {
   name: 'MessageArea',
@@ -118,6 +119,12 @@ export default {
   methods: {
     addMessage: function (data) {
       this.messages.push(data)
+      if (data.username !== this.username) {
+        this.$notification.show(`${data.username} said:`, {
+          body: data.content,
+          icon: link('', data.email)
+        }, {})
+      }
     },
     sendMessage: function () {
       if (this.inputMessage === '') return

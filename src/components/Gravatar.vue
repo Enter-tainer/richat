@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import md5 from 'md5'
+import link from '../utilities/GravatarLink'
 export default {
   name: 'gravatar',
   props: {
@@ -34,14 +34,7 @@ export default {
   },
   computed: {
     url () {
-      const img = [
-        '//gravatar.loli.net/avatar/',
-        this.hash || md5(this.email.trim().toLowerCase()),
-        `?s=${this.size}`,
-        `&d=${this.defaultImg}`,
-        `&r=${this.rating}`
-      ]
-      return img.join('')
+      return link(this.hash, this.email, this.size, this.defaultImg, this.rating)
     }
   },
   methods: {
