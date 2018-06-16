@@ -2,12 +2,12 @@
   <div id="app">
     <div class="mdui-drawer" id="left-drawer">
       <ul class="mdui-list" mdui-collapse="{accordion: true}">
-        <a href="/">
+        <router-link to="/">
           <li class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
             <div class="mdui-list-item-content">主页</div>
           </li>
-        </a>
+        </router-link>
         <li class="mdui-collapse-item mdui-collapse-item-open">
           <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
@@ -31,7 +31,7 @@
         </li>
       </ul>
     </div>
-    <MessageArea :nightMode="nightMode" :resetUsername="resetUsername"/>
+    <router-view :nightMode="nightMode" :resetUsername="resetUsername"/>
   </div>
 </template>
 

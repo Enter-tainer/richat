@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import VueSocketio from 'vue-socket.io'
 import VueNativeNotification from 'vue-native-notification'
-
+import router from './router'
 Vue.config.productionTip = false
 Vue.use(VueSocketio, 'https://chat.yuyuko.cc')
 Vue.use(VueNativeNotification, {
@@ -11,6 +11,6 @@ Vue.use(VueNativeNotification, {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  // router,
+  router,
   render: h => h(App)
 })
