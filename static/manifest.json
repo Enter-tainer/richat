@@ -1,0 +1,23 @@
+{
+  "short_name": "Richat",
+  "name": "Online chat with Markdown & LaTeX support",
+  "icons": [{
+    "src": "/icon-128px.png",
+    "type": "image/png",
+    "sizes": "128x128"
+  }, {
+    "src": "/icon-144px.png",
+    "type": "image/png",
+    "sizes": "144x144"
+  }, {
+    "src": "/icon-192px.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  }, {
+    "src": "https://i.loli.net/2018/02/14/5a83912d2c2ca.png",
+    "type": "image/png",
+    "sizes": "512x512"
+  }],
+  "start_url": "index.html",
+  "display": "standalone"
+}
