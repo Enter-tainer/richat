@@ -1,72 +1,76 @@
 <template>
-  <div class="mdui-container">
-    <LoadingSpinner class="mdui-center mdui-m-t-3" v-if="loadingHistoryMessage"/>
-    <div class="mdui-row" v-if="!loadingHistoryMessage">
-      <Message v-for="i in historyMessage"
-        :key="i.id"
-        :username='i.username'
-        :content='i.content'
-        :email="i.email"
-        :timestamp="i.timestamp"
-        :self="i.username === username">
-      </Message>
-    </div>
-    <div class="mdui-row">
-      <div class="mdui-divider mdui-m-t-1 mdui-m-b-1" v-if="!loadingHistoryMessage"></div>
-      <Message v-for="i in messages"
-        :key="i.id"
-        :username='i.username'
-        :content='i.content'
-        :email="i.email"
-        :timestamp="i.timestamp"
-        :self="i.username === username">
-      </Message>
-    </div>
-    <div class="mdui-row" id="inputArea" :class="{ nightMode: nightMode, dayMode: !nightMode}">
-      <div class="mdui-m-t-2">
-        <div v-if="!logined">
-          <div class="mdui-col-xs-6">
-            <div class="mdui-textfield mdui-textfield-floating-label">
-              <label class="mdui-textfield-label">Username</label>
-              <input class="mdui-textfield-input" type="text" v-model="username" required/>
-              <div class="mdui-textfield-error">用户名不能为空</div>
+  <div>
+    <Appbar group-name="Touhou"/>
+    <div class="mdui-container">
+      <LoadingSpinner class="mdui-center mdui-m-t-3" v-if="loadingHistoryMessage"/>
+      <div class="mdui-row" v-if="!loadingHistoryMessage">
+        <Message v-for="i in historyMessage"
+          :key="i.id"
+          :username='i.username'
+          :content='i.content'
+          :email="i.email"
+          :timestamp="i.timestamp"
+          :self="i.username === username">
+        </Message>
+      </div>
+      <div class="mdui-row">
+        <div class="mdui-divider mdui-m-t-1 mdui-m-b-1" v-if="!loadingHistoryMessage"></div>
+        <Message v-for="i in messages"
+          :key="i.id"
+          :username='i.username'
+          :content='i.content'
+          :email="i.email"
+          :timestamp="i.timestamp"
+          :self="i.username === username">
+        </Message>
+      </div>
+      <div class="mdui-row" id="inputArea" :class="{ nightMode: nightMode, dayMode: !nightMode}">
+        <div class="mdui-m-t-2">
+          <div v-if="!logined">
+            <div class="mdui-col-xs-6">
+              <div class="mdui-textfield mdui-textfield-floating-label">
+                <label class="mdui-textfield-label">Username</label>
+                <input class="mdui-textfield-input" type="text" v-model="username" required/>
+                <div class="mdui-textfield-error">用户名不能为空</div>
+              </div>
+            </div>
+            <div class="mdui-col-xs-6">
+              <div class="mdui-textfield mdui-textfield-floating-label">
+                <label class="mdui-textfield-label">Email</label>
+                <input class="mdui-textfield-input" type="email" v-model="email" required/>
+                <div class="mdui-textfield-error">邮箱格式错误</div>
+              </div>
             </div>
           </div>
-          <div class="mdui-col-xs-6">
+          <div class="mdui-col-xs-12">
             <div class="mdui-textfield mdui-textfield-floating-label">
-              <label class="mdui-textfield-label">Email</label>
-              <input class="mdui-textfield-input" type="email" v-model="email" required/>
-              <div class="mdui-textfield-error">邮箱格式错误</div>
+              <label class="mdui-textfield-label">Message</label>
+              <div class="mdui-textfield-helper mdui-typo">
+                <a href="https://segmentfault.com/markdown" target="_blank">MarkDown</a> is Supported
+              </div>
+            <textarea class="mdui-textfield-input" @keyup.ctrl.enter="sendMessage" v-model="inputMessage"></textarea>
             </div>
-          </div>
-        </div>
-        <div class="mdui-col-xs-12">
-          <div class="mdui-textfield mdui-textfield-floating-label">
-            <label class="mdui-textfield-label">Message</label>
-            <div class="mdui-textfield-helper mdui-typo">
-              <a href="https://segmentfault.com/markdown" target="_blank">MarkDown</a> is Supported
-            </div>
-          <textarea class="mdui-textfield-input" @keyup.ctrl.enter="sendMessage" v-model="inputMessage"></textarea>
           </div>
         </div>
       </div>
+      <button @click="sendMessage" class="mdui-fab mdui-fab-fixed mdui-color-theme-accent mdui-ripple">
+        <i class="mdui-icon material-icons">send</i>
+      </button>
     </div>
-    <button @click="sendMessage" class="mdui-fab mdui-fab-fixed mdui-color-theme-accent mdui-ripple">
-      <i class="mdui-icon material-icons">send</i>
-    </button>
   </div>
 </template>
 
 <script>
 import Message from './SingleMessage'
 import LoadingSpinner from './LoadingSpinner'
+import Appbar from './Appbar.vue'
 import mdui from 'mdui'
 import { renderAllMath } from '../utilities/MathRenderer.js'
 import gavatarLink from '../utilities/GravatarLink'
 import delay from 'lodash/delay'
 export default {
   name: 'MessageArea',
-  components: {Message, LoadingSpinner},
+  components: {Message, LoadingSpinner, Appbar},
   props: ['nightMode', 'resetUsername'],
   sockets: {
     connect: function () {

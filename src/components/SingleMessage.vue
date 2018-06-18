@@ -1,9 +1,6 @@
 <template>
-  <div class="mdui-col-xs-8" :class="{ 'mdui-col-offset-xs-4': self}">
-      <div class="mdui-card mdui-m-t-1 mdui-m-b-1 mdui-shadow-3"
-        @mouseover="debounceMouseOver"
-        @mouseout="debounceMouseOut"
-      >
+  <div class="mdui-col-xs-8" :class="{ 'mdui-col-offset-xs-4': self}" @click="showSource = !showSource">
+      <div class="mdui-card mdui-m-t-1 mdui-m-b-1 mdui-shadow-3 mdui-ripple" mdui-tooltip="{content: '点击以显示Markdwon文本'}">
         <div class="mdui-card-header">
           <gravatar :email="email" :class="{ 'mdui-float-right': self, 'mdui-m-l-1': self }"/>
           <div class="mdui-card-header-title" :class="{ 'mdui-text-right': self }">{{ username }}</div>
@@ -68,20 +65,20 @@ export default {
       this.renderedMarkdown = renderMarkdown(this.content)
       delay(renderMath, 100)
       delay(makeMediaZoomable, 100)
-    },
-    debounceMouseOver: function () {
-      // console.log('Mouse in')
-      this.setShowSource()
-      // this.delayTimer = setTimeout(this.setShowSource, 500)
-    },
-    debounceMouseOut: function () {
-      // console.log('Mouse out')
-      this.showSource = false
-      // clearTimeout(this.delayTimer)
-    },
-    setShowSource: function () {
-      this.showSource = true
     }
+    // debounceMouseOver: function () {
+    //   // console.log('Mouse in')
+    //   clearTimeout(this.delayTimer)
+    //   this.delayTimer = setTimeout(this.setShowSource, 500)
+    // },
+    // debounceMouseOut: function () {
+    //   // console.log('Mouse out')
+    //   this.showSource = false
+    //   clearTimeout(this.delayTimer)
+    // },
+    // setShowSource: function () {
+    //   this.showSource = true
+    // }
   },
   updated () {
     delay(makeMediaZoomable, 100)
