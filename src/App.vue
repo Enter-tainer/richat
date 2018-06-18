@@ -8,6 +8,18 @@
             <div class="mdui-list-item-content">主页</div>
           </li>
         </router-link>
+          <li class="mdui-collapse-item mdui-collapse-item-open">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+              <i class="mdui-list-item-icon mdui-icon material-icons">group</i>
+              <div class="mdui-list-item-content">群组</div>
+              <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+              <router-link v-for="i in groupAvailable" :key="i.link" :to="i.link">
+                <li class="mdui-list-item mdui-ripple mdui-text-truncate">{{i.name}}</li>
+              </router-link>
+            </ul>
+          </li>
         <li class="mdui-collapse-item mdui-collapse-item-open">
           <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">settings</i>
@@ -45,7 +57,14 @@ export default {
   data: function () {
     return {
       nightMode: true,
-      resetUsername: false
+      resetUsername: false,
+      groupAvailable: [{
+        name: 'qwq圣殿',
+        link: 'qwqism'
+      }, {
+        name: 'data group = TH | CS | Gal',
+        link: 'thcsgal'
+      }]
     }
   },
   watch: {

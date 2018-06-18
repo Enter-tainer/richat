@@ -8,8 +8,12 @@ export default new Router({
   mode: 'history',
   routes: [{
     path: '/',
+    redirect: '/group/Main'
+  }, {
+    path: '/group/:groupName',
     name: 'MessageArea',
-    component: MessageArea
+    component: MessageArea,
+    props: true
   }, {
     path: '/*',
     name: 'notFound',

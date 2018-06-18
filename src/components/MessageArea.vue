@@ -1,10 +1,11 @@
 <template>
   <div>
-    <Appbar group-name="Touhou"/>
+    <Appbar :group-name="groupName"/>
     <div class="mdui-container">
       <LoadingSpinner class="mdui-center mdui-m-t-3" v-if="loadingHistoryMessage"/>
       <div class="mdui-row" v-if="!loadingHistoryMessage">
         <Message v-for="i in historyMessage"
+          v-if="i.group === groupName"
           :key="i.id"
           :username='i.username'
           :content='i.content'
@@ -16,6 +17,7 @@
       <div class="mdui-row">
         <div class="mdui-divider mdui-m-t-1 mdui-m-b-1" v-if="!loadingHistoryMessage"></div>
         <Message v-for="i in messages"
+          v-if="i.group === groupName"
           :key="i.id"
           :username='i.username'
           :content='i.content'
@@ -71,7 +73,7 @@ import delay from 'lodash/delay'
 export default {
   name: 'MessageArea',
   components: {Message, LoadingSpinner, Appbar},
-  props: ['nightMode', 'resetUsername'],
+  props: ['nightMode', 'resetUsername', 'groupName'],
   sockets: {
     connect: function () {
       mdui.snackbar('连接到服务器')
@@ -83,13 +85,7 @@ export default {
       console.log('socket disconnected')
     },
     newMessage: function (val) {
-      var data = {
-        username: val.username,
-        content: val.content,
-        email: val.email,
-        timestamp: (new Date()).valueOf()
-      }
-      this.addMessage(data)
+      this.addMessage(val)
     },
     login: function (data) {
       mdui.snackbar(`成功连接服务器，现有${data.numUsers}人在线`)
@@ -122,7 +118,7 @@ export default {
   methods: {
     addMessage: function (data) {
       this.messages.push(data)
-      if (data.username !== this.username) {
+      if (data.username !== this.username && data.group === this.groupName) {
         this.$notification.show(`${data.username} said:`, {
           body: data.content,
           icon: gavatarLink('', data.email)
@@ -135,7 +131,8 @@ export default {
         username: this.username,
         content: this.inputMessage,
         email: this.email,
-        timestamp: (new Date()).valueOf()
+        timestamp: (new Date()).valueOf(),
+        group: this.groupName
       }
       localStorage.setItem('email', this.email)
       localStorage.setItem('username', this.username)
