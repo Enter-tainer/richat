@@ -1,6 +1,6 @@
 <template>
-  <div class="mdui-col-xs-8" :class="{ 'mdui-col-offset-xs-4': self}" @click="showSource = !showSource">
-      <div class="mdui-card mdui-m-t-1 mdui-m-b-1 mdui-shadow-3 mdui-ripple" mdui-tooltip="{content: '点击以显示Markdwon文本'}">
+  <div class="mdui-col-xs-8" :class="{ 'mdui-col-offset-xs-4': self}">
+      <div class="mdui-card mdui-m-t-1 mdui-m-b-1 mdui-shadow-3">
         <div class="mdui-card-header">
           <gravatar :email="email" :class="{ 'mdui-float-right': self, 'mdui-m-l-1': self }"/>
           <div class="mdui-card-header-title" :class="{ 'mdui-text-right': self }">{{ username }}</div>
@@ -15,11 +15,13 @@
             <pre><code>{{ content }}</code></pre>
           </div>
         </div>
-        <!-- <div class="mdui-card-actions">
-          <button class="mdui-btn mdui-ripple">action 1</button>
-          <button class="mdui-btn mdui-ripple">action 2</button>
-          <button class="mdui-btn mdui-btn-icon mdui-float-right"><i class="mdui-icon material-icons">expand_more</i></button>
-        </div> -->
+        <div class="mdui-card-actions">
+          <!-- <button class="mdui-btn mdui-ripple" >切换Markdown文本显示状态</button>
+          <button class="mdui-btn mdui-ripple">action 2</button> -->
+          <button class="mdui-btn mdui-btn-icon mdui-float-right" @click="showSource = !showSource">
+            <i class="mdui-icon material-icons">unfold_more</i>
+          </button>
+        </div>
       </div>
     </div>
 </template>
