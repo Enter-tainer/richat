@@ -16,11 +16,11 @@
           </div>
         </div>
         <div class="mdui-card-actions">
-          <!-- <button class="mdui-btn mdui-ripple" >切换Markdown文本显示状态</button>
-          <button class="mdui-btn mdui-ripple">action 2</button> -->
-          <button class="mdui-btn mdui-btn-icon mdui-float-right" @click="showSource = !showSource">
-            <i class="mdui-icon material-icons">unfold_more</i>
-          </button>
+          <!-- <button class="mdui-btn mdui-ripple" @click="showSource = !showSource">Markdown</button> -->
+          <!-- <button class="mdui-btn mdui-ripple">action 2</button> -->
+          <!-- <button class="mdui-btn mdui-btn-icon mdui-float-right" > -->
+            <!-- <i class="mdui-icon material-icons">unfold_more</i> -->
+          <!-- </button> -->
         </div>
       </div>
     </div>
