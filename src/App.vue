@@ -60,10 +60,10 @@ export default {
       resetUsername: false,
       groupAvailable: [{
         name: 'qwq圣殿',
-        link: 'qwqism'
+        link: 'qwq圣殿'
       }, {
         name: 'data group = TH | CS | Gal',
-        link: 'thcsgal'
+        link: 'data group = TH | CS | Gal'
       }]
     }
   },
