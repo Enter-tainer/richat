@@ -15,6 +15,11 @@
               <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
             </div>
             <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+              <router-link :to=randomLink()>
+                <li class="mdui-list-item mdui-ripple mdui-text-truncate">随机房间</li>
+              </router-link>
+            </ul>
+            <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
               <router-link v-for="i in groupAvailable" :key="i.link" :to="i.link">
                 <li class="mdui-list-item mdui-ripple mdui-text-truncate">{{i.name}}</li>
               </router-link>
@@ -54,6 +59,14 @@ import mdui from 'mdui'
 export default {
   name: 'App',
   components: {MessageArea},
+  methods: {
+    randomLink () {
+      return btoa(this.shuffleString(btoa(new Date().valueOf())))
+    },
+    shuffleString (str) {
+      return Array.from(str).sort(() => 0.5 - Math.random()).join()
+    }
+  },
   data: function () {
     return {
       nightMode: true,
