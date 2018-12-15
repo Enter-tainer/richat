@@ -59,9 +59,6 @@ export default {
       nightMode: true,
       resetUsername: false,
       groupAvailable: [{
-        name: 'qwq圣殿',
-        link: 'qwq圣殿'
-      }, {
         name: 'data group = TH | CS | Gal',
         link: 'data group = TH | CS | Gal'
       }]
